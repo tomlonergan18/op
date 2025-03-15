@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premier League Opinion Poll</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <h1>Premier League Opinion Poll</h1>
+
+<div id="FeedbackMessage" class="feedback-message" style = "display: none;">
+    <p>Thank you for sumbitting your opinion!</p>
+    </div>
+    
+    <form id="opinionForm">
+        <label for="name">Your Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="team">Favorite Premier League Team:</label><br>
+        <select id="team" name="team" required>
+            <option value="">Select a Team</option>
+            <option value="Arsenal">Arsenal</option>
+            <option value="Chelsea">Chelsea</option>
+            <option value="Liverpool">Liverpool</option>
+            <option value="Man City">Manchester City</option>
+            <option value="Man United">Manchester United</option>
+            <option value="Tottenham">Tottenham</option>
+            <option value="West Ham">West Ham</option>
+            <option value="Wolves">Wolves</option>
+            <option value="Aston Villa">Aston Villa</option>
+            <option value="Newcastle United">Newcastle United</option> 
+            <option value="Crystal Palace">Crystal Palace</option>
+            <option value="Brighton">Brighton</option>
+            <option value="Fulham">Fulham</option>
+            <option value="Everton">Everton</option>
+            <option value="Brentford">Brentford</option>
+            <option value="Nottingham Forest">Nottingham Forest</option>
+            <option value="Luton">Luton</option>
+            <option value="Burnley">Burnley</option>
+            <option value="Sheffield United">Sheffield United</option>
+            <option value="Bournemouth">Bournemouth</option>
+        </select><br><br>
+
+        <label for="rating">How would you rate this season (1-10)?</label><br>
+        <input type="number" id="rating" name="rating" min="1" max="10" required><br><br>
+
+        <label>Do you watch the Premier League?</label><br>
+        <input type="radio" id="watchYes" name="watchPL" value="Yes" required>
+        <label for="watchYes">Yes</label>
+
+        <input type="radio" id="watchNo" name="watchPL" value="No">
+        <label for="watchNo">No</label><br><br>
+
+        <label>Did you find the statistics used engaging?</label><br>
+        <input type="radio" id="engaging_yes" name="engaging" value="Yes">
+        <label for="engaging_yes">Yes</label>
+
+        <input type="radio" id="engaging_no" name="engaging" value="No">
+        <label for="engaging_no">No</label><br><br>
+
+        <label for="feedback">What did you find most/least engaging about the statistics?</label><br>
+        <textarea id="feedback" name="feedback" rows="4" cols="50" placeholder="Share your thoughts here..."></textarea><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Table that displays results -->
+    <div id="resultsContainer">
+        <h2>Submitted Responses</h2>
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Favorite Team</th>
+                    <th>Season Rating</th>
+                    <th>Watches PL</th>
+                    <th>Statistics Engaging?</th>
+                    <th>Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data goes here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById("opinionForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Stops page reloading after submit is pressed
+
+            // Gets user input
+            var name = document.getElementById("name").value;
+            var team = document.getElementById("team").value;
+            var rating = document.getElementById("rating").value;
+            var watchPL = document.querySelector('input[name="watchPL"]:checked')?.value || "Not Answered";
+            var engaging = document.querySelector('input[name="engaging"]:checked')?.value || "Not Answered";
+            var feedback = document.getElementById("feedback").value;
+
+            // Insert new row into the table
+            var table = document.getElementById("resultsTable").getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow();
+
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${team}</td>
+                <td>${rating}</td>
+                <td>${watchPL}</td>
+                <td>${engaging}</td>
+                <td>${feedback}</td>
+            `;
+
+            // Show results table
+            document.getElementById("resultsContainer").style.display = "block";
+
+            // Clear form fields
+            document.getElementById("opinionForm").reset();
+        });
+    </script>
+
+</body>
+</html>
